@@ -58,39 +58,17 @@ namespace DataLibrary.BuisnessLogic
                 return newID;
             }
         }
-        public static int CheckUsername(string Username)
+        public static int CheckEmailorUserName(string text)
         {
             using (IDbConnection connection = new SqlConnection(GetConnectionString("Shop")))
             {
 
                 var p = new DynamicParameters();
-                p.Add("@Username", Username);
+                p.Add("@text", text);
                 p.Add("@selection", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                connection.Execute("dbo.uspCheckUsername", p, commandType: CommandType.StoredProcedure);
+                connection.Execute("dbo.uspCheckEmailorUserName", p, commandType: CommandType.StoredProcedure);
                 int newID = p.Get<int>("@selection");
                 return newID;
-            }
-        }
-        public static int CheckEmail(string Email)
-        {
-            using (IDbConnection connection = new SqlConnection(GetConnectionString("Shop")))
-            {
-
-                var p = new DynamicParameters();
-                p.Add("@Email", Email);
-                p.Add("@selection", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                connection.Execute("dbo.uspCheckEmail", p, commandType: CommandType.StoredProcedure);
-                int newID = p.Get<int>("@selection");
-                return newID;
-            }
-        }
-        public static string Encryptor(string passWord)
-        {
-            using (MD5CryptoServiceProvider mD5 = new MD5CryptoServiceProvider())
-            {
-                UTF8Encoding uTF8 = new UTF8Encoding();
-                byte[] data = mD5.ComputeHash(uTF8.GetBytes(passWord));
-                return Convert.ToBase64String(data);
             }
         }
         public static string Sha256(string password)

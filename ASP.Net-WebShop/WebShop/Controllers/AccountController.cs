@@ -13,7 +13,7 @@ namespace WebShop.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account az
+        // GET: Account 
         public ActionResult ViewCustomers()
         {
             ViewBag.Message = "Customers List";
@@ -73,11 +73,11 @@ namespace WebShop.Controllers
         [HttpPost]
         public JsonResult IsUsernameSigned(string Username)
         {
-            return Json(IsUsernameAvailable(Username));
+            return Json(IsUsernameOrEmailAvailable(Username));
         }
-        public bool IsUsernameAvailable(string userName)
+        public bool IsUsernameOrEmailAvailable(string userName)
         {
-            int count=CheckUsername(userName);
+            int count= CheckEmailorUserName(userName);
             bool status;
             if (count > 0) status = false;
             else status = true;
@@ -86,15 +86,7 @@ namespace WebShop.Controllers
         [HttpPost]
         public JsonResult IsEmailSigned(string Email)
         {
-            return Json(IsEmailAvailable(Email));
-        }
-        public bool IsEmailAvailable(string eMail)
-        {
-            int count = CheckEmail(eMail);
-            bool status;
-            if (count > 0) status = false;
-            else status = true;
-            return status;
+            return Json(IsUsernameOrEmailAvailable(Email));
         }
         public ActionResult LogIn()
         {
