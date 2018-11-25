@@ -11,9 +11,9 @@ namespace DataLibrary.BuisnessLogic
 {
     public static class CustomerProcessor
     {
-        public static int CreateCustomer(string userName,string firstName,string lastName,
-            string phoneNumber,string eMail,string passWd,DateTime birthDate,string country,
-            string states, string zipCode, string settlement,string addresses)
+        public static int CreateCustomer(string userName, string firstName, string lastName,
+            string phoneNumber, string eMail, string passWd, DateTime birthDate, string country,
+            string states, string zipCode, string settlement, string addresses)
         {
             Customer data = new Customer
             {
@@ -51,7 +51,7 @@ namespace DataLibrary.BuisnessLogic
                 string jelszo = Encryptor(Password);
                 var p = new DynamicParameters();
                 p.Add("@Username", Username);
-                p.Add("@Password",jelszo);
+                p.Add("@Password", jelszo);
                 p.Add("@selection", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 connection.Execute("dbo.spLogin", p, commandType: CommandType.StoredProcedure);
                 int newID = p.Get<int>("@selection");
@@ -86,7 +86,7 @@ namespace DataLibrary.BuisnessLogic
         }
         public static string Encryptor(string passWord)
         {
-            using (MD5CryptoServiceProvider mD5= new MD5CryptoServiceProvider() )
+            using (MD5CryptoServiceProvider mD5 = new MD5CryptoServiceProvider())
             {
                 UTF8Encoding uTF8 = new UTF8Encoding();
                 byte[] data = mD5.ComputeHash(uTF8.GetBytes(passWord));
