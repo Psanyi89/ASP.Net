@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuisnessLogic\CustomerProcessor.cs" />
+    <Compile Include="D:\GitHub\ASP.Net\WebShop1\DataLibrary\BuisnessLogic\CustomerProcessor.cs">
+      <Link>BuisnessLogic\CustomerProcessor.cs</Link>
+    </Compile>
     <Compile Include="DataAccess\SQLDataAccess.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -13,7 +13,7 @@ namespace WebShop.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
+        // GET: Account az
         public ActionResult ViewCustomers()
         {
             ViewBag.Message = "Customers List";

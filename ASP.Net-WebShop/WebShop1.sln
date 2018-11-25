@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShop", "C:\Users\plesk\source\repos\WebShop1\WebShop\WebShop.csproj", "{6707958E-E668-4307-912A-FC1C5A19B7B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShop", "WebShop\WebShop.csproj", "{6707958E-E668-4307-912A-FC1C5A19B7B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLibrary", "C:\Users\plesk\source\repos\WebShop1\DataLibrary\DataLibrary.csproj", "{0A734356-E9FF-4929-B3C0-6534BE25A4B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{0A734356-E9FF-4929-B3C0-6534BE25A4B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
