@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="D:\GitHub\ASP.Net\WebShop1\DataLibrary\BuisnessLogic\CustomerProcessor.cs">
       <Link>BuisnessLogic\CustomerProcessor.cs</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DataAccess\SQLDataAccess.cs" />
     <Compile Include="Models\Customer.cs" />
