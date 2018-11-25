@@ -22,7 +22,7 @@ namespace DataLibrary.BuisnessLogic
                 Lastname = lastName,
                 Phonenumber = phoneNumber,
                 Email = eMail,
-                Passwd = Encryptor(passWd),
+                Passwd = Sha256(passWd),
                 Birthdate = birthDate,
                 Country = country,
                 States = states,
@@ -48,7 +48,7 @@ namespace DataLibrary.BuisnessLogic
         {
             using (IDbConnection connection = new SqlConnection(GetConnectionString("Shop")))
             {
-                string jelszo = Encryptor(Password);
+                string jelszo = Sha256(Password);
                 var p = new DynamicParameters();
                 p.Add("@Username", Username);
                 p.Add("@Password", jelszo);
@@ -92,6 +92,13 @@ namespace DataLibrary.BuisnessLogic
                 byte[] data = mD5.ComputeHash(uTF8.GetBytes(passWord));
                 return Convert.ToBase64String(data);
             }
+        }
+        public static string Sha256(string password)
+        {
+            var crypt = new SHA512Managed();
+            var hash = new StringBuilder();
+            byte[] code = crypt.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(code);
         }
     }
 }
