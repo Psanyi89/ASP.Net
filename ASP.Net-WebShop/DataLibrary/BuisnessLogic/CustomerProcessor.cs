@@ -22,7 +22,7 @@ namespace DataLibrary.BuisnessLogic
                 Lastname = lastName,
                 Phonenumber = phoneNumber,
                 Email = eMail,
-                Passwd = Sha256(passWd),
+                Passwd = SHA512(passWd),
                 Birthdate = birthDate,
                 Country = country,
                 States = states,
@@ -47,11 +47,10 @@ namespace DataLibrary.BuisnessLogic
         public static int LoginCustomer(string Username, string Password)
         {
             using (IDbConnection connection = new SqlConnection(GetConnectionString("Shop")))
-            {
-                string jelszo = Sha256(Password);
+            {     
                 var p = new DynamicParameters();
                 p.Add("@Username", Username);
-                p.Add("@Password", jelszo);
+                p.Add("@Password", SHA512(Password));
                 p.Add("@selection", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 connection.Execute("dbo.spLogin", p, commandType: CommandType.StoredProcedure);
                 int newID = p.Get<int>("@selection");
@@ -71,7 +70,7 @@ namespace DataLibrary.BuisnessLogic
                 return newID;
             }
         }
-        public static string Sha256(string password)
+        public static string SHA512(string password)
         {
             var crypt = new SHA512Managed();
             var hash = new StringBuilder();

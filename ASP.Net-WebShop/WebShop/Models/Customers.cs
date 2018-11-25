@@ -9,25 +9,31 @@ namespace WebShop.Models
     {
 
         [Display(Name ="Username")]
-        [StringLength(100,ErrorMessage ="Your username is {0} long and it's need to be at least {1} long.",MinimumLength =5)]
+        [StringLength(50,MinimumLength =5)]
         [RegularExpression("^[a-zA-Z0-9]+$",ErrorMessage ="Username can contains only alphabets and numbers.")]
         [Required(ErrorMessage ="Username required")]
         [Remote("IsUsernameSigned", "Account", HttpMethod = "POST", ErrorMessage = "Username already in use.")]
         public string Username { get; set; }
         [Display(Name = "First Name")]
         [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "First name can contains only alphabets.")]
+        [StringLength(50, MinimumLength = 1)]
         [Required(ErrorMessage = "First name required")]
         public string Firstname { get; set; }
         [Display(Name = "Last Name")]
         [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Last name can contains only alphabets.")]
+        [StringLength(50, MinimumLength = 1)]
         [Required(ErrorMessage = "Last name required")]
         public string Lastname { get; set; }
         [Display(Name ="Phonenumber")]
+        [Phone()]
         [DataType(DataType.PhoneNumber,ErrorMessage ="Please enter a valid phonenumber")]
+        [RegularExpression("^[0-9]+$", ErrorMessage ="It's not a valid phonenumber format")]
+        [StringLength(13,MinimumLength =10)]
         [Required(ErrorMessage = "Phonenumber required")]
         public string Phonenumber { get; set; }
         [Display(Name = "Email Address")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Please enter a valid email address")]
+        [StringLength(50, MinimumLength = 5)]
         [Required(ErrorMessage = "Email address required")]
         [Remote("IsEmailSigned", "Account", HttpMethod = "POST", ErrorMessage = "Email already in use.")]
         public string Email { get; set; }
@@ -38,6 +44,7 @@ namespace WebShop.Models
         public string Confirmemail { get; set; }
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
+        [StringLength(50, MinimumLength = 8)]
         [Required(ErrorMessage = "Password required")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}",
         ErrorMessage = @"Password must contain at least 1 lowercase, an uppercase letter,
@@ -63,10 +70,12 @@ a number, one special character, and must be eight characters or longer.")]
         [Required(ErrorMessage ="City required")]
         public string Settlement { get; set; }
         [Display(Name ="PostCode")]
+        [StringLength(50, MinimumLength = 1)]
         [DataType(DataType.PostalCode)]
         [Required(ErrorMessage ="PostCode required")]
-        public string Zipcode { get; set; }
+        public  string Zipcode { get; set; }
         [Display(Name ="Address")]
+        [StringLength(50, MinimumLength = 1)]
         [Required(ErrorMessage ="Address required")]
         public string Addresses { get; set; }
         
