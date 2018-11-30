@@ -1,13 +1,8 @@
-﻿using DataLibrary.Models;
-using Microsoft.Ajax.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.WebPages.Html;
 using WebShop.Models;
 using static DataLibrary.BuisnessLogic.CustomerProcessor;
+
 
 namespace WebShop.Controllers
 {
@@ -42,14 +37,66 @@ namespace WebShop.Controllers
         public ActionResult SignUp()
         {
             ViewBag.Message = "Create new a profile";
+             ViewBag.CountryList = new SelectList(GetCountryList(), "Id", "Name");
 
             return View();
         }
-        
+        public List<Countries> GetCountryList()
+        {
+            var countries = LoadCountries();
+            List < Countries > nations= new List<Countries>();
+            foreach (var item in countries)
+            {
+                nations.Add(new Countries
+                {
+                    Id = item.Id,
+                    Name = item.Name
+                });
+            }
+           
+            return nations;
+        }
+        public ActionResult GetStateList(int Id)
+        {
+            var province = LoadStates(Id);
+            List<States> StateList = new List<States>();
+            foreach (var item in province)
+            {
+                StateList.Add(new States
+                {                  
+                    StateId = item.StateId,
+                    StateName = item.StateName
+                  
+                });
+            }
+
+            ViewBag.StateList = new SelectList(StateList, "StateId", "StateName");
+            return PartialView("_DisplayStates");
+        }
+        public ActionResult GetCityList(int StateId)
+        {
+            var CityList = LoadCities(StateId);
+            List<Cities> settle = new List<Cities>();
+            foreach (var item in CityList)
+            {
+                settle.Add(new Cities
+                {
+                    CityId = item.CityId,
+                    CityName = item.CityName,
+                  
+                });
+            }
+            ViewBag.CityList = new SelectList(settle, "CityId", "CityName");
+            return PartialView("_DisplayCities");
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUp(Customers model)
+        public ActionResult SignUp(Customers model, FormCollection form)
         {
+            int countryId=int.Parse(model.Country);
+           int stateId=int.Parse(model.States);
+           int cityId=int.Parse(model.Settlement);
+          
             if (ModelState.IsValid)
             {
                 int recordCreate = CreateCustomer(
@@ -60,10 +107,10 @@ namespace WebShop.Controllers
                    model.Email,
                    model.Passwd,
                    model.Birthdate,
-                   model.Country,
-                   model.States,
+                   model.Country = GetCountryName(countryId),
+                   model.States= GetStateName(stateId),
                    model.Zipcode,
-                   model.Settlement,
+                   model.Settlement = GetCityName(cityId),
                    model.Addresses
                     );
                 return RedirectToAction("Index","Home");
@@ -98,7 +145,9 @@ namespace WebShop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogIn(CustomerLogin customer)
         {
-            int count = LoginCustomer(customer.Username, customer.Password);
+
+
+        int count = LoginCustomer(customer.Username,SHA512(customer.Password));
            if ( count== 1)
             {
 

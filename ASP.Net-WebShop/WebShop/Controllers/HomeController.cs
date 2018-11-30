@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using WebShop.Models;
-using  static DataLibrary.BuisnessLogic.CustomerProcessor;
+﻿using System.Web.Mvc;
 
 namespace WebShop.Controllers
 {
