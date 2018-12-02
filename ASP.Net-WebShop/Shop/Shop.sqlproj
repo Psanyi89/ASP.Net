@@ -7,7 +7,7 @@
     <Name>Shop</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{536da6d4-5bff-421b-939e-cd2c319f7e37}</ProjectGuid>
+    <ProjectGuid>{60e2f9b7-f885-436c-bb9e-f12db9460a7f}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql140DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
@@ -24,6 +24,7 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>Hungarian_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -58,5 +59,34 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\countries.sql" />
+    <Build Include="dbo\Tables\cities.sql" />
+    <Build Include="dbo\Tables\states.sql" />
+    <Build Include="dbo\Tables\Customers.sql" />
+    <Build Include="dbo\Tables\OrderLine.sql" />
+    <Build Include="dbo\Tables\Orders.sql" />
+    <Build Include="dbo\Tables\Products.sql" />
+    <Build Include="Security\proc_executor.sql" />
+    <Build Include="Security\User.sql" />
+    <Build Include="Security\User_1.sql" />
+    <Build Include="dbo\Stored Procedures\spInsertCustomer.sql" />
+    <Build Include="dbo\Stored Procedures\spGetAllCustomers.sql" />
+    <Build Include="dbo\Stored Procedures\spLogin.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteUser.sql" />
+    <Build Include="dbo\Stored Procedures\uspGetCountries.sql" />
+    <Build Include="dbo\Stored Procedures\uspCheckEmailorUserName.sql" />
+    <Build Include="dbo\Stored Procedures\uspChooseCities.sql" />
+    <Build Include="dbo\Stored Procedures\uspChooseStates.sql" />
+    <Build Include="dbo\Stored Procedures\uspGetCountry.sql" />
+    <Build Include="dbo\Stored Procedures\uspGetState.sql" />
+    <Build Include="dbo\Stored Procedures\uspGetCity.sql" />
+    <Build Include="dbo\Stored Procedures\uspEmptyStates.sql" />
+    <Build Include="dbo\Stored Procedures\uspCheckCityName.sql" />
   </ItemGroup>
 </Project>

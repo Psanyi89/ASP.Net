@@ -1,11 +1,10 @@
 ﻿@model WebShop.Models.Customers
 @{
- 
+
     ViewBag.Title = ViewBag.Message;
 }
 
 <h2>SignUp</h2>
-
 
 @using (Html.BeginForm())
 {
@@ -16,7 +15,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Username , htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
@@ -89,9 +88,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Hidden("Countryname", null, new { @id = "CountryName" })
-           c     @Html.DropDownListFor(model => model.Country, ViewBag.CountryList as SelectList, "---Select Country---"
-               , new { @class = "form-control",@id="Id", @onChange="selectedcountry(this)" })
+
+                @Html.DropDownListFor(model => model.Country, ViewBag.CountryList as SelectList, "---Select Country---"
+                , new { @class = "form-control",@id="Id"})
                 @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -99,9 +98,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.States, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Hidden("Statename", null, new { @id = "StateName" })
+
                 @Html.DropDownListFor(model => model.States, new SelectList(" "), "---Select State---"
-               , new { @class = "form-control",@id="StateId", @onChange= "selectedstate(this)" })
+               , new { @class = "form-control",@id="StateId" })
                 @Html.ValidationMessageFor(model => model.States, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -109,9 +108,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Settlement, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Hidden("Cityname", null, new { @id = "CityName" })
+
                 @Html.DropDownListFor(model => model.Settlement, new SelectList(" "), "---Select City---"
-               , new { @class = "form-control", @id="CityId", @onChange= "selectedcity(this)" })
+               , new { @class = "form-control", @id="CityId" })
                 @Html.ValidationMessageFor(model => model.Settlement, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -147,20 +146,21 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    
 
     <script>
         $(document).ready(function () {
             $("#Id").change(function () {
                 var countryId = $(this).val();
-                
-                
+
                 $.ajax({
                     type: "post",
                     url: "/Account/GetStateList?Id=" + countryId,
                     contentType: "html",
                     success: function (response) {
-                        
+                        $("#CityId").empty();
+
+                        $('#CityId').append('<option value="">---Select City---</option>');
+
                         $("#StateId").empty();
                         $("#StateId").append(response);
                     }
@@ -170,33 +170,18 @@
         $(document).ready(function () {
             $("#StateId").change(function () {
                 var StateId = $(this).val();
-               
+
                 $.ajax({
                     type: "post",
                     url: "/Account/GetCityList?StateId=" + StateId,
                     contentType: "html",
                     success: function (response) {
-                        
+
                         $("#CityId").empty();
                         $("#CityId").append(response);
                     }
                 })
             })
         })
-        function selectedcountry(ddlitem) {
-            var selvalue = ddlitem.val;
-            var seltext = ddlitem.options[dd.selectedindex].innerHTML;
-            $('#CountryName').val(seltext);
-        };
-        function selectedstate(ddlitem) {
-            var selvalue = ddlitem.val;
-            var seltext = ddlitem.options[dd.selectedindex].innerHTML;
-            $('#StateName').val(seltext);
-        };
-        function selectedcity(ddlitem) {
-            var selvalue = ddlitem.val;
-            var seltext = ddlitem.options[dd.selectedindex].innerHTML;
-            $('#CityName').val(seltext);
-        };
     </script>
 }

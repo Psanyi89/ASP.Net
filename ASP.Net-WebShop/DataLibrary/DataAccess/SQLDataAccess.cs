@@ -14,22 +14,12 @@ namespace DataLibrary.DataAccess
             return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
         }
 
-        public static dynamic GetData(string sql)
+        public static T GetData<T>(string sql, DynamicParameters parameters)
         {
-            DynamicParameters dynamic = new DynamicParameters();
-         
-
+           
             using (IDbConnection connection = new SqlConnection(GetConnectionString("Shop")))
             {
-                return connection.QuerySingle<string>(sql);
-            }
-        }
-
-        public static int IntData(string sql)
-        {
-            using (IDbConnection connection = new SqlConnection(GetConnectionString("Shop")))
-            {
-                return connection.QuerySingle<int>(sql);
+                return connection.QuerySingle<T>(sql,parameters);
             }
         }
 
