@@ -8,6 +8,7 @@ namespace Blazor_RestApi_Dapper.DataAccess.IRepositories
 {
    public interface IProductRepository
     {
+        Task<IEnumerable<Product>> Search(string name, int? quantity, decimal? price);
         Task<IEnumerable<Product>> GetProducts();
         Task<Product> GetProduct(int productId);
         Task<Product> GetProductByName(string name);

@@ -25,10 +25,8 @@ namespace Blazor_RestApi_Dapper.DataAccess
         /// <returns>Returns a list of T</returns>
         public async Task<IEnumerable<T>> GetList<T>(string sqlCommand, string connectionString, DynamicParameters parameters = null) where T : class
         {
-            using (IDbConnection connection = GetDbConnection(connectionString))
-            {
-                return await connection.QueryAsync<T>(sqlCommand, parameters, commandType: CommandType.StoredProcedure);
-            }
+            using IDbConnection connection = GetDbConnection(connectionString);
+            return await connection.QueryAsync<T>(sqlCommand, parameters, commandType: CommandType.StoredProcedure);
         }
         #endregion
 
@@ -43,10 +41,8 @@ namespace Blazor_RestApi_Dapper.DataAccess
         /// <returns>Returns a single object or variable</returns>
         public async Task<T> GetSingle<T>(string sqlCommand, string connectionString, DynamicParameters parameters = null)where T : class
         {
-            using (IDbConnection connection = GetDbConnection(connectionString))
-            {
-                return await connection.QueryFirstOrDefaultAsync<T>(sqlCommand, parameters, commandType: CommandType.StoredProcedure);
-            }
+            using IDbConnection connection = GetDbConnection(connectionString);
+            return await connection.QueryFirstOrDefaultAsync<T>(sqlCommand, parameters, commandType: CommandType.StoredProcedure);
         }
         #endregion
 
@@ -60,11 +56,8 @@ namespace Blazor_RestApi_Dapper.DataAccess
         /// <returns>returns number of rows were affected</returns>
         public async Task<int> CmdExecute(string sqlCommand, string connectionString, DynamicParameters parameters = null)
         {
-            using (IDbConnection connection = GetDbConnection(connectionString))
-            {
-               return await connection.ExecuteScalarAsync<int>(sqlCommand, parameters, commandType: CommandType.StoredProcedure);
-               
-            }
+            using IDbConnection connection = GetDbConnection(connectionString);
+            return await connection.ExecuteScalarAsync<int>(sqlCommand, parameters, commandType: CommandType.StoredProcedure);
         }
         #endregion
 

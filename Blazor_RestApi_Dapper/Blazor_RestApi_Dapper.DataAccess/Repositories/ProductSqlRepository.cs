@@ -22,7 +22,6 @@ namespace Blazor_RestApi_Dapper.DataAccess.Repositories
         {
             DynamicParameters param = GetDynamicParameters(product);
             return await _sqlDataAccess.GetSingle<Product>(UspProducts.uspInsertProduct.ToString(),_connectionString,param);
-           
         }
 
         public async Task<Product> DeleteProduct(int productId)
@@ -52,6 +51,24 @@ namespace Blazor_RestApi_Dapper.DataAccess.Repositories
             return await _sqlDataAccess.GetList<Product>(UspProducts.uspGetProducts.ToString(),_connectionString);
         }
 
+        public async Task<IEnumerable<Product>> Search(string name, int? quantity, decimal? price)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+            parameters.Add("@Name", name);
+            }
+            if (quantity.HasValue && quantity >= 0 && quantity < int.MaxValue)
+            {
+                parameters.Add("@Quantity", quantity);
+            }
+            if (price.HasValue && price >= 0M && price < decimal.MaxValue)
+            {
+                parameters.Add("@Price", price,System.Data.DbType.Currency);
+            }
+            return await _sqlDataAccess.GetList<Product>(UspProducts.uspGetProducts.ToString(), _connectionString, parameters);
+        }
+
         public async Task<Product> UpdateProduct(Product product)
         {
             DynamicParameters param = GetDynamicParameters(product);
@@ -72,24 +89,25 @@ namespace Blazor_RestApi_Dapper.DataAccess.Repositories
                 RemoveUnused = true
             };
 
-            if (product?.ProductId!=null && product?.ProductId>0)
+            if (product?.ProductId>0)
             {
                 dynamicParameters.Add("@ProductId", product.ProductId);
             }
             if (!string.IsNullOrWhiteSpace(product?.Name))
             {
-                dynamicParameters.Add("@Name",product.Name);
+                dynamicParameters.Add("@Name", product.Name);
             }
-            if (product?.Quantity!=null)
+            if (product?.Quantity >= 0 && product?.Quantity < int.MaxValue)
             {
-                dynamicParameters.Add("@Quantity", product.Quantity);
+               dynamicParameters.Add("@Quantity", product.Quantity);
             }
-            if (product?.Price!=null && product?.Price>0M)
+            if (product?.Price >= 0M && product?.Price < decimal.MaxValue)
             {
-                dynamicParameters.Add("@Price", product.Price);
+                dynamicParameters.Add("@Price", product.Price,System.Data.DbType.Currency);
             }
             return dynamicParameters;
         }
         #endregion
+   
     }
 }

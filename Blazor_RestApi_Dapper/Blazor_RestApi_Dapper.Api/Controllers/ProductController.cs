@@ -20,6 +20,25 @@ namespace Blazor_RestApi_Dapper.Api.Controllers
             this._productRepository = productRepository;
         }
 
+        [HttpGet("{search}")]
+        public async Task<ActionResult<Product>> Search(string name, int? quantity, decimal? price)
+        {
+            try
+            {
+                var result = await _productRepository.Search(name, quantity, price);
+                if (result.Any())
+                {
+                    return Ok(result);
+                }
+                return NotFound();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult> GetProducts()
         {
