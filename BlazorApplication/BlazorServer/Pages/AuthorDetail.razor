@@ -1,8 +1,27 @@
-﻿@page "/authors/authordetail"
+﻿@page "/authors/authordetail/{authorId}"
+@page "/authors/authordetail"
 @page "/author"
-<h3>AuthorDetail</h3>
-<hr/>
-<p>J.K.Rowling/ Harry Potter</p>
-@code {
+@inject IAuthorService authorService
+<h3>Author Detail</h3>
+<hr />
 
+<div class="col-12 row">
+    <h5 class="col-12 row" style="font-weight:bold">@AuthorDetails.FirstName @AuthorDetails.LastName</h5>
+    <h6 class="col-12 row">Ph: @AuthorDetails.PhoneNumber</h6>
+    <h6 class="col-12 row">City: @AuthorDetails.City</h6>
+</div>
+
+<hr />
+<div class="col-12 row">@authorService.GetCreateDate()</div>
+<div class="col-12 row">@authorService.GetVersion()</div>
+
+@code {
+    [Parameter]
+    public string AuthorId { get; set; }
+    public Author AuthorDetails { get; set; }
+
+    protected override void OnInitialized()
+    {
+        AuthorDetails = authorService.GetAuthorById(AuthorId);
+    }
 }

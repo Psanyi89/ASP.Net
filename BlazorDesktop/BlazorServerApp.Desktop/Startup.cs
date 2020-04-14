@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BlazorServer.Data;
+using BlazorServerApp.Desktop.Data;
+using ElectronNET.API;
+using ElectronNET.API.Entities;
 
-namespace BlazorServer
+namespace BlazorServerApp.Desktop
 {
     public class Startup
     {
@@ -29,7 +31,6 @@ namespace BlazorServer
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddScoped<IAuthorService, AuthorService_v2>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +57,25 @@ namespace BlazorServer
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+            Task.Run(async () => await BootStrap());
+        }
+        public async Task BootStrap()
+        {
+            var options = new BrowserWindowOptions
+            {
+                Show = false,
+                Icon = "Images/git.ico",
+                 
+            };
+
+            var mainWindow = await Electron.WindowManager.CreateWindowAsync(options);
+            mainWindow.OnReadyToShow += () =>
+            {
+                
+                mainWindow.SetTitle("Admin Tool V2");
+                mainWindow.SetAutoHideMenuBar(true);
+                mainWindow.Show();
+            };
         }
     }
 }
