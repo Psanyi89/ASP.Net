@@ -1,16 +1,21 @@
 ﻿@page "/"
 @inject IAuthorService authorService
+@inject IJSRuntime JSRuntime
 
 <div class="col-12">
     <h3><b>Enter Author Information</b></h3>
     <hr />
+    <div id="divServerValidations" class="col-10 alert alert-info" >
 
+    </div>
     <EditForm Model="@author" OnValidSubmit="@SaveAuthor">
         <DataAnnotationsValidator/>
         <div class="col-12 row">
             <label class="col-2 font-weight-bold">First name :</label>
-            <InputText class="form-control col-3" @bind-Value="author.FirstName" placeholder="first name" />
-            &nbsp;<ValidationMessage For="@(()=>author.FirstName)"/>
+            @*<InputText @ref="firstNameText" class="form-control col-3" @bind-Value="author.FirstName" placeholder="first name" />*@
+            <input @ref="firstNameText" class="form-control col-3" @bind="author.FirstName" placeholder="first name" />
+
+            &nbsp;<ValidationMessage For="@(()=>author.FirstName)" />
         </div>
         <div class="col-12 row">
             <label class="col-2 font-weight-bold">Last name :</label>
@@ -19,7 +24,16 @@
         </div>
         <div class="col-12 row">
             <label class="col-2 font-weight-bold">City :</label>
-            <InputText class="form-control col-3" @bind-Value="author.City" placeholder="city" />
+            @*<InputText class="form-control col-3" @bind-Value="author.City" placeholder="city" />*@
+            <InputSelect @bind-Value="author.City" class="form-control col-3">
+                @if (Cities!=null)
+                {
+                    @foreach (var city in Cities)
+                    {
+                        <option value="@city">@city</option>
+                    }
+                }
+            </InputSelect>
             &nbsp;<ValidationMessage For="@(()=>author.City)" />
         </div>
         <div class="col-12 row">
@@ -87,15 +101,31 @@
 @code {
     public Author author { get; set; }
     public List<Author> AuthorList { get; set; }
+    ElementReference firstNameText;
+    public string[] Cities { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Cities==null)
+        {
+            Cities=  await JSRuntime.InvokeAsync<string[]>("getCities");
+            StateHasChanged();
+        }
+    }
+
     protected override void OnInitialized()
     {
         AuthorList = authorService.GetAuthors();
         author = new Author();
     }
 
-    private void SaveAuthor()
+    private async Task SaveAuthor()
     {
         authorService.SaveAuthor(author);
+        var firstName = author.FirstName;
+        var lastName = author.LastName;
         author = new Author();
+        await JSRuntime.InvokeVoidAsync("saveMessage",firstName,lastName);
+        await JSRuntime.InvokeVoidAsync("setFocusOnElement", firstNameText);
     }
 }
