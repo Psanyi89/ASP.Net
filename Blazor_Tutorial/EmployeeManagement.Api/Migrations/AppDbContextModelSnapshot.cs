@@ -66,7 +66,7 @@ namespace EmployeeManagement.Api.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Department")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -93,7 +93,7 @@ namespace EmployeeManagement.Api.Migrations
                         {
                             EmployeeId = 1,
                             DateOfBirth = new DateTime(1980, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Department = 1,
+                            DepartmentId = 1,
                             Email = "savid@pragimtech.com",
                             FirstName = "John",
                             Gender = 0,
@@ -104,7 +104,7 @@ namespace EmployeeManagement.Api.Migrations
                         {
                             EmployeeId = 2,
                             DateOfBirth = new DateTime(1981, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Department = 2,
+                            DepartmentId = 2,
                             Email = "sam@pragimtech.com",
                             FirstName = "Sam",
                             Gender = 0,
@@ -115,7 +115,7 @@ namespace EmployeeManagement.Api.Migrations
                         {
                             EmployeeId = 3,
                             DateOfBirth = new DateTime(1979, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Department = 1,
+                            DepartmentId = 1,
                             Email = "mary@pragimtech.com",
                             FirstName = "Mary",
                             Gender = 1,
@@ -126,7 +126,7 @@ namespace EmployeeManagement.Api.Migrations
                         {
                             EmployeeId = 4,
                             DateOfBirth = new DateTime(1982, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Department = 3,
+                            DepartmentId = 3,
                             Email = "sara@pragimtech.com",
                             FirstName = "Sara",
                             Gender = 0,

@@ -37,8 +37,9 @@ namespace EmployeeManagement.Api.Models
 
         public async Task<Employee> GetEmployee(int employeeId)
         {
-           return await _appDbContext.Employees.FirstOrDefaultAsync(
-                 e => e.EmployeeId == employeeId);
+           return await _appDbContext.Employees
+                .Include(e=>e.Department)
+                .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
            
         }
 
@@ -76,7 +77,7 @@ namespace EmployeeManagement.Api.Models
             {
                 result.FirstName = employee.FirstName;
                 result.LastName = employee.LastName;
-                result.Department = employee.Department;
+                result.DepartmentId = employee.DepartmentId;
                 result.DateOfBirth = employee.DateOfBirth;
                 result.Email = employee.Email;
                 result.Gender = employee.Gender;

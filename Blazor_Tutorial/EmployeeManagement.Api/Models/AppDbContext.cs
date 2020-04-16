@@ -43,7 +43,7 @@ namespace EmployeeManagement.Api.Models
                 Email = "savid@pragimtech.com",
                 DateOfBirth = new DateTime(1980, 10, 5),
                 Gender = Gender.Male,
-                Department = 1,
+                DepartmentId = 1,
                 PhotoPath = "images/john.png"
             });
             modelBuilder.Entity<Employee>().HasData(new Employee
@@ -55,7 +55,7 @@ namespace EmployeeManagement.Api.Models
                 Email = "sam@pragimtech.com",
                 DateOfBirth = new DateTime(1981, 12, 22),
                 Gender = Gender.Male,
-                Department = 2,
+                DepartmentId = 2,
                 PhotoPath = "images/sam.jpg"
             });
             modelBuilder.Entity<Employee>().HasData(new Employee
@@ -66,7 +66,7 @@ namespace EmployeeManagement.Api.Models
                 Email = "mary@pragimtech.com",
                 DateOfBirth = new DateTime(1979, 11, 11),
                 Gender = Gender.Female,
-                Department = 1,
+                DepartmentId = 1,
                 PhotoPath = "images/mary.png"
             });
             modelBuilder.Entity<Employee>().HasData(new Employee
@@ -77,7 +77,7 @@ namespace EmployeeManagement.Api.Models
                 Email = "sara@pragimtech.com",
                 DateOfBirth = new DateTime(1982, 9, 23),
                 Gender = Gender.Female,
-                Department = 3,
+                DepartmentId = 3,
                 PhotoPath = "images/sara.png"
             });
 
