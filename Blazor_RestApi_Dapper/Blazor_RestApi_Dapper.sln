@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor_RestApi_Dapper.Api",
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Blazor_RestApi_Dapper.Sql", "Blazor_RestApi_Dapper.Sql\Blazor_RestApi_Dapper.Sql.sqlproj", "{956DE45A-3C70-4FD3-A043-0305FD7261B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor_RestApi_Dapper.DataAccess", "Blazor_RestApi_Dapper.DataAccess\Blazor_RestApi_Dapper.DataAccess.csproj", "{034F6644-162D-49DD-A341-A42F157DCBBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor_RestApi_Dapper.DataAccess", "Blazor_RestApi_Dapper.DataAccess\Blazor_RestApi_Dapper.DataAccess.csproj", "{034F6644-162D-49DD-A341-A42F157DCBBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
