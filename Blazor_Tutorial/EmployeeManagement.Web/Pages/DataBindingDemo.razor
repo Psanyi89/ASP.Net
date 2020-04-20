@@ -1,0 +1,43 @@
+﻿@page "/databindingdemo"
+@inherits DataBindingDemoBase
+
+<h3>DataBindingDemo</h3>
+<hr/>
+<h3>OneWay Data Binding </h3>
+<div>
+    <b>Name : </b> @Name
+</div>
+<div>
+    <b>Name with salutation: </b>@(Gender=="Male"? $"Mr. {Name}" : $"Miss. {Name}")
+</div>
+<div>
+    <b>Name : </b><input value="@Name" />
+</div>
+
+<h3>TwoWay Data Binding </h3>
+
+<div>
+    <b>Name : </b><input value="@Name" @onchange="@(e=> { Name = e.Value.ToString(); })"/>
+</div>
+<div>
+    <b>Name : </b><input @bind="@Name" />
+</div>
+<div>
+    <b>Name : </b><input @bind="@Name" @bind:event="oninput"/>
+</div>
+<b>Colour : </b><input @bind="@Colour" />
+<div @bind-style="Colour" @bind-style:event="onchange" >
+    <h3>The background colour of this text changes</h3>
+</div>
+
+<b>Description</b>
+
+<div>
+
+    <textarea @bind="Description" @bind:event="oninput" style="width:500px"/>
+
+</div>
+
+<div>
+    Count : @Description.Length
+</div>
