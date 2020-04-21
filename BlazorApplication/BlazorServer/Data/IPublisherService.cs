@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 
 namespace BlazorServer.Data
 {
-   public interface IAuthorService
-   {
-
-        List<Author> GetAuthors();
-        Author GetAuthorById(string authorId);
+  public  interface IPublisherService
+    {
+        List<Publisher> GetPublishers();
+        Publisher GetPublisherById(int pubId);
         DateTime GetCreateDate();
         string GetVersion();
-        bool SaveAuthor(Author author);
-        
-   }
+        bool SavePublisher(Publisher publisher);
+    }
 }

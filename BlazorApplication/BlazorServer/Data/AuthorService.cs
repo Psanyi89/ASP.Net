@@ -43,9 +43,18 @@ namespace BlazorServer.Data
             return "v1";
         }
 
-        public void SaveAuthor(Author author)
+         public bool SaveAuthor(Author author)
         {
-            Authors.Add(author);
+            try
+            {
+                Authors.Add(author);
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
     }
 }
