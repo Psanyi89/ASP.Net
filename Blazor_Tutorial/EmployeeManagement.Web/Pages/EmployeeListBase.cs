@@ -13,10 +13,22 @@ namespace EmployeeManagement.Web.Pages
         [Inject]
         public IEmployeeService EmployeeService { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
+        public bool ShowFooter { get; set; } = true;
         protected async override Task OnInitializedAsync()
         {
           Employees= (await EmployeeService.GetEmployees()).ToList();
         }
-       
+        protected int SelectedEmployeeCount { get; set; } = 0;
+        protected void EmployeeSelectionChanged(bool isSelected)
+        {
+            if (isSelected)
+            {
+                SelectedEmployeeCount++;
+            }
+            else
+            {
+                SelectedEmployeeCount--;
+            }
+        }
     }
 }
