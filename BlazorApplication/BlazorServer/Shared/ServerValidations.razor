@@ -1,4 +1,5 @@
-﻿
+﻿@inject IAuthorService authorService
+
 @if (IsVisible)
 {
 @if (Result)
@@ -16,7 +17,7 @@
 else
 {
 
-<div id="divServerValidations" class="col-10 alert alert-danger">
+<div id="divServerValidations" class="col-10 alert alert-danger row">
     <div class="col-11" style="text-align:left">
         <span style="font-weight:bold; font-style:italic"> Oops, something has gone wrong, please contact system admin</span>
     </div>
@@ -33,7 +34,15 @@ else
     public RenderFragment ChildContent { get; set; }
     [Parameter]
     public bool Result { get; set; }
-   
+
+    protected override Task OnParametersSetAsync()
+    {
+        Result = false; // authorService.CheckConnection();
+        IsVisible = !Result;
+        return base.OnParametersSetAsync();
+
+    }
+
     private void CloseValidation()
     {
         IsVisible = false;

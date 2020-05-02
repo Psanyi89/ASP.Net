@@ -1,5 +1,5 @@
 ﻿function saveMessage(firstName, lastName) {
-    // alert(firstName + ' ' + lastName+' has been saved successfully!');
+     //alert(firstName + ' ' + lastName+' has been saved successfully!');
     document.getElementById('divServerValidations').innerText = firstName + ' ' + lastName + ' has been saved successfully!';
 }
 function setFocusOnElement(element) {

@@ -34,7 +34,10 @@ namespace BlazorServer.Data
             {
                 author.FirstName = author.FirstName.ToLower();
                 author.LastName = author.LastName.ToLower();
-                author.PhoneNumber = author.PhoneNumber.Replace(" ", "-");
+                if (author.PhoneNumber!=null)
+                {
+                    author.PhoneNumber = author.PhoneNumber.Replace(" ", "-"); 
+                }
             }
             return Authors;
         }
