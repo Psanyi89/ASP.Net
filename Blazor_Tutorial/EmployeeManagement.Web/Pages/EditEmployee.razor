@@ -1,7 +1,7 @@
 ﻿@page "/editemployee/{id}"
 @inherits EditEmployeeBase
 
-    <EditForm Model="@EditEmployeeModel" OnInvalidSubmit="HandleValidSubmit">
+    <EditForm Model="@EditEmployeeModel" OnValidSubmit="HandleValidSubmit">
         <ObjectGraphDataAnnotationsValidator />
         <h3>Edit Employee</h3>
         <hr />
@@ -81,8 +81,8 @@
                Department Name
             </label>
             <div class="col-sm-10" id="deptName">
-                <InputText @bind-Value="EditEmployeeModel.Department.DepartmentName" class="form-control" />
-                <ValidationMessage For="@(()=>EditEmployeeModel.Department.DepartmentName)" />
+                <InputText class="form-control" @bind-Value="EditEmployeeModel.Department.DepartmentName"  />
+               <ValidationMessage For="@(()=>EditEmployeeModel.Department.DepartmentName)" />
             </div>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
