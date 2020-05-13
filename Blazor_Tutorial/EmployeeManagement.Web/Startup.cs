@@ -17,11 +17,12 @@ namespace EmployeeManagement.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration,IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
-
+        private readonly IWebHostEnvironment _env;
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -29,7 +30,13 @@ namespace EmployeeManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddServerSideBlazor().AddCircuitOptions(options=> 
+            {
+                if (_env.IsDevelopment())
+                {
+                    options.DetailedErrors = true;
+                }
+            });
             services.AddAutoMapper(typeof(EmployeeProfile));
             services.AddHttpClient<IEmployeeService, EmployeeService>(
                 client=>client.BaseAddress=new Uri("https://localhost:44345/"));
