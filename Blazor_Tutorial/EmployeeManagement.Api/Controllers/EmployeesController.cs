@@ -1,4 +1,5 @@
-﻿using EmployeeManagement.Api.Models;
+﻿using AutoMapper;
+using EmployeeManagement.Api.Models;
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,6 @@ namespace EmployeeManagement.Api.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
-
         public EmployeesController(IEmployeeRepository employeeRepository)
         {
             this._employeeRepository = employeeRepository;
@@ -73,7 +73,7 @@ namespace EmployeeManagement.Api.Controllers
                 }
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError
@@ -91,13 +91,13 @@ namespace EmployeeManagement.Api.Controllers
                 {
                     return BadRequest();
                 }
-
                 var emp = await _employeeRepository.GetEmployeeByEmail(employee.Email);
                 if (emp!=null)
                 {
                     ModelState.AddModelError("email", "Employee email already in use");
                     return BadRequest(ModelState);
                 }
+                employee.Department = null;
             var createdEmployee= await _employeeRepository.AddEmployee(employee);
                 return CreatedAtAction(nameof(GetEmployee),new { id=createdEmployee.EmployeeId},createdEmployee);
             }

@@ -16,6 +16,9 @@ namespace EmployeeManagement.Web.Pages
         public IEmployeeService EmployeeService { get; set; }
         [Inject]
         public IDepartmentService DepartmentService { get; set; }
+
+        public string PageHeaderText { get; set; }
+
         public List<Department> Departments { get; set; } = new List<Department>();
         private Employee Employee { get; set; } = new Employee();
         public EditEmployeeModel EditEmployeeModel { get; set; } = new EditEmployeeModel();
@@ -33,10 +36,11 @@ namespace EmployeeManagement.Web.Pages
             if (employeeId!=0)
             {
             Employee = await EmployeeService.GetEmployee(int.Parse(Id));
-
+                PageHeaderText = "Edit Employee";
             }
             else
             {
+                PageHeaderText = "Create Employee";
                 Employee = new Employee
                 {
                     

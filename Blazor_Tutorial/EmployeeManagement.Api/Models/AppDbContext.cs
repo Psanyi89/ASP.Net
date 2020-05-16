@@ -19,7 +19,7 @@ namespace EmployeeManagement.Api.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+           // modelBuilder.Entity<Employee>().i(x => x.Department);
             #region Seed Departments Table
 
             modelBuilder.Entity<Department>().HasData(
