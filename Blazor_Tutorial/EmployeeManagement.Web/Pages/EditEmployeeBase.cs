@@ -56,17 +56,14 @@ namespace EmployeeManagement.Web.Pages
 
             Departments = (await DepartmentService.GetDepartments()).ToList();
             Mapper.Map(Employee, EditEmployeeModel);
-            //EditEmployeeModel.EmployeeId = Employee.EmployeeId;
-            //EditEmployeeModel.FirstName = Employee.FirstName;
-            //EditEmployeeModel.LastName = Employee.LastName;
-            //EditEmployeeModel.Email = Employee.Email;
-            //EditEmployeeModel.ConfirmEmail = Employee.Email;
-            //EditEmployeeModel.DateOfBirth = Employee.DateOfBirth;
-            //EditEmployeeModel.Gender = Employee.Gender;
-            //EditEmployeeModel.PhotoPath = Employee.PhotoPath;
-            //EditEmployeeModel.DepartmentId = Employee.DepartmentId;
-            //EditEmployeeModel.Department = Employee.Department;
         }
+
+        protected async Task Delete_Click_Async()
+        {
+            await EmployeeService.DeleteEmployee(Employee.EmployeeId);
+            NavigationManager.NavigateTo("/");
+        }
+
         protected async Task HandleValidSubmit()
         {
             Mapper.Map(EditEmployeeModel, Employee);
