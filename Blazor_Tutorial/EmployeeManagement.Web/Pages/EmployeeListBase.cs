@@ -19,6 +19,12 @@ namespace EmployeeManagement.Web.Pages
           Employees= (await EmployeeService.GetEmployees()).ToList();
         }
         protected int SelectedEmployeeCount { get; set; } = 0;
+
+        protected async Task EmployeeDeleted()
+        {
+            Employees = (await EmployeeService.GetEmployees()).ToList();
+        }
+
         protected void EmployeeSelectionChanged(bool isSelected)
         {
             if (isSelected)

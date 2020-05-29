@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.Web", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.Api", "EmployeeManagement.Api\EmployeeManagement.Api.csproj", "{31FCA36D-08A1-4AA2-A8FB-8152BAA82AF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psanyi89.Components", "Psanyi89.Components\Psanyi89.Components.csproj", "{F929C56E-E4E1-4541-8FC2-631687A5836C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psanyi89.Components", "Psanyi89.Components\Psanyi89.Components.csproj", "{F929C56E-E4E1-4541-8FC2-631687A5836C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

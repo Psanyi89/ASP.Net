@@ -3,6 +3,7 @@ using EmployeeManagement.Models;
 using EmployeeManagement.Web.Models;
 using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
+using Psanyi89.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace EmployeeManagement.Web.Pages
         public EditEmployeeModel EditEmployeeModel { get; set; } = new EditEmployeeModel();
         [Parameter]
         public string Id { get; set; }
+
+        protected ConfirmBase DeleteConfirmation { get; set; }
 
         [Inject]
         public IMapper Mapper { get; set; }
@@ -57,12 +60,20 @@ namespace EmployeeManagement.Web.Pages
             Departments = (await DepartmentService.GetDepartments()).ToList();
             Mapper.Map(Employee, EditEmployeeModel);
         }
-
-        protected async Task Delete_Click_Async()
+        protected void Delete_Click()
         {
-            await EmployeeService.DeleteEmployee(Employee.EmployeeId);
-            NavigationManager.NavigateTo("/");
+            DeleteConfirmation.Show();
         }
+
+        protected async Task ConfirmDelete_Click(bool deleteConfirmed)
+        {
+            if (deleteConfirmed)
+            {
+                await EmployeeService.DeleteEmployee(Employee.EmployeeId);
+                NavigationManager.NavigateTo("/");
+            }
+        }
+    
 
         protected async Task HandleValidSubmit()
         {

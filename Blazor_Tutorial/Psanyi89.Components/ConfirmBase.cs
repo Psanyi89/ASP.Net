@@ -1,0 +1,37 @@
+﻿using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Psanyi89.Components
+{
+   public class ConfirmBase : ComponentBase
+    {
+        protected bool ShowConfirmation { get; set; }
+
+        [Parameter]
+        public string ConfirmationTitle { get; set; } = "Delete Confirmation";
+
+        [Parameter]
+        public string ConfirmationMessage { get; set; } = "Are you sure you want to delete?";
+        [Parameter]
+        public string CancelButton { get; set; } = "Cancel";
+        [Parameter]
+        public string ConfirmButton{ get; set; } = "Delete";
+        public void Show()
+        {
+            ShowConfirmation = true;
+            StateHasChanged();
+        }
+
+        [Parameter]
+        public EventCallback<bool> ConfirmationChanged { get; set; }
+
+        protected async Task OnConfirmationChange(bool value)
+        {
+            ShowConfirmation = false;
+            await ConfirmationChanged.InvokeAsync(value);
+        }
+    }
+}
