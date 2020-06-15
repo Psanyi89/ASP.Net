@@ -1,0 +1,11 @@
+﻿@page "/pc"
+
+<h1 style="@Style">Parent Component Text</h1>
+<CascadingValue Value="@Style">
+
+<ChildComponent></ChildComponent>
+</CascadingValue>
+
+@code {
+    public string Style { get; set; } = "color:red";
+}

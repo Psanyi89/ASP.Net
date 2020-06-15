@@ -20,7 +20,13 @@ namespace EmployeeManagement.Web.Pages
 
         [Parameter]
         public bool ShowFooter { get; set; }
-
+        [Parameter(CaptureUnmatchedValues =true)]
+        public Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>()
+        {
+            {"size","15" },
+            {"maxlegth","15" },
+            {"someattribute","somevalue" }
+        };
         [Parameter]
         public EventCallback<bool> OnEmployeeSelection { get; set; }
         [Parameter]

@@ -20,6 +20,13 @@ namespace EmployeeManagement.Web.Pages
         }
         protected int SelectedEmployeeCount { get; set; } = 0;
 
+        public Dictionary<string, object> attributesFromParent { get; set; }
+        = new Dictionary<string, object>()
+        {
+            {"size", "20" },
+            {"maxlegth","20" }
+        };
+
         protected async Task EmployeeDeleted()
         {
             Employees = (await EmployeeService.GetEmployees()).ToList();
